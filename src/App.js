@@ -5,6 +5,7 @@ import { register, useAsyncOp, registerPlugin } from 'use-async-ops'
 
 import RunningOpsProvider from 'use-async-ops/dist/plugins/runningOps/RunningOpsProvider'
 import useRunningOps from 'use-async-ops/dist/plugins/runningOps/useRunningOps'
+import useAsyncLoading from 'use-async-ops/dist/plugins/runningOps/useAsyncLoading'
 
 // import { reduxPlugin } from 'use-async-ops-redux'
 // import useAsyncRunning from 'use-async-ops/dist/useAsyncRunning'
@@ -24,6 +25,7 @@ const store = createStore(reducer)
 
 const ShowRunning = () => {
   const running = useRunningOps()
+  const loading = useAsyncLoading()
   return <pre>{JSON.stringify(running, null, 2)}</pre>
 }
 
@@ -37,6 +39,7 @@ export default () => {
           <button onClick={() => call(1)}>run</button>
           <pre>{JSON.stringify({ result, loading }, null, 2)}</pre>
           <ShowRunning />
+          {loading ? <h1>LOADING</h1> : null}
         </div>
       </Provider>
     </RunningOpsProvider>
